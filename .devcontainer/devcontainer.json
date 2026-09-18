@@ -1,7 +1,6 @@
 {
     "name": "my game container",
-    "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu-24.04",
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y libsfml-dev libgl1-mesa-dev x11-apps cmake ninja-build",
+    "dockerFile": "Dockerfile",
     "containerEnv": {
         "DISPLAY": "${localEnv:DISPLAY}"
     },

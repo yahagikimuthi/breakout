@@ -1,4 +1,4 @@
-cmake_minimum_required(3.30)
+cmake_minimum_required(VERSION 3.30)
 
 project(my_game CXX)
 
@@ -19,6 +19,8 @@ FetchContent_Declare(
     GIT_TAG        master
 )
 FetchContent_MakeAvailable(pcg_cpp)
+
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
 
 # --- ソースファイルの取得 ---
 file(GLOB_RECURSE MAIN_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
@@ -72,6 +74,9 @@ target_sources(my_game PRIVATE ${MAIN_SOURCES})
 target_link_libraries(my_game PRIVATE
     my_game_lib
     project_warnings
+    sfml-graphics
+    sfml-window
+    sfml-system
 )
 
 # テスト用 ターゲット
@@ -80,6 +85,9 @@ target_sources(my_game_test PRIVATE ${TEST_SOURCES})
 target_link_libraries(my_game_test PRIVATE
     my_game_lib
     project_warnings
+    sfml-graphics
+    sfml-window
+    sfml-system
 )
 
 add_test(NAME UnitTests COMMAND my_game_test)
