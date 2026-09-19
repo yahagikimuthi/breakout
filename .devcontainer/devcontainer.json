@@ -1,9 +1,18 @@
 {
     "name": "my game container",
-    "dockerFile": "Dockerfile",
+    "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu-24.04",
     "containerEnv": {
-        "DISPLAY": "${localEnv:DISPLAY}"
+        "CC": "gcc-16",
+        "CXX": "g++-16",
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "WAYLAND_DISPLAY": "wayland-0",
+        "XDG_RUNTIME_DIR": "/mnt/wslg",
+        "LIBGL_ALWAYS_SOFTWARE": "1",
+        "GALLIUM_DRIVER": "llvmpipe",
+        "MESA_GL_VERSION_OVERRIDE": "3.3",
+        "MESA_GLSL_VERSION_OVERRIDE": "330"
     },
+    "postCreateCommand": "bash .devcontainer/setup.sh",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -26,7 +35,8 @@
         "--security-opt",
         "seccomp=unconfined",
         "--net=host",
+        "--ipc=host",
         "-v",
-        "/tmp/.X11-unix:/tmp/.X11-unix"
+        "/mnt/wslg/.X11-unix:/tmp/wslg-x11:rw"
     ]
 }
